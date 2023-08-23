@@ -48,20 +48,20 @@ export const StockList = () => {
                 </tr>
             </thead>
             <tbody>
-            {stock.map((stockData)=> {
-                    return (
-                        <tr>
-                            <th scope="row">{stockData.symbol}</th>
-                            <td>{stockData.data.c}</td>
-                            <td>{stockData.data.d}</td>
-                            <td>{stockData.data.dp}</td>
-                            <td>{stockData.data.h}</td>
-                            <td>{stockData.data.l}</td>
-                            <td>{stockData.data.o}</td>
-                            <td>{stockData.data.pc}</td>
-                        </tr>
-                    )
-                })}
+            {stock && stock.map((watchData) => {
+    return (
+        <tr className="table-row" key={watchData.symbol}>
+            <th>{watchData.symbol}</th>
+            <td>{watchData.data.c}</td>
+            <td>{watchData.data.d}</td>
+            <td>{watchData.data.dp}</td>
+            <td>{watchData.data.h}</td>
+            <td>{watchData.data.l}</td>
+            <td>{watchData.data.o}</td>
+            <td>{watchData.data.pc}</td>
+        </tr>
+    )
+})}
             </tbody>
 
         </table>
