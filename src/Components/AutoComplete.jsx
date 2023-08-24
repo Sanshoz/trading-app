@@ -1,18 +1,29 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import finnHub from "../APIS/finnHub"
+import { WatchListContext } from "../context/watchListContext"
 
 export const AutoComplete  = () => {
     const [search, setSearch] = useState("")
     const [results, setResults] = useState([])
+    const {addStock} = useContext(WatchListContext)
+    
     
     
     const renderDropDown = () => {
         const dropDownClass = search ? "show" : "";
         return (
-            <ul className={`dropdown-menu ${dropDownClass}`}>
-                {results && results.map((result) => {
+            <ul style={{
+                height: "500px",
+                overflowY: "scroll",
+                overflowX: "hidden",
+                cursor: "pointer"
+                }} className={`dropdown-menu ${dropDownClass}`}>
+                {results.map((result) => {
                     return (
-                        <li key={result.symbol} className="dropdown-item">
+                        <li key={result.symbol} className="dropdown-item" onClick={() => {
+                            addStock(result.symbol)
+                            setSearch('')
+                            }}>
                             {result.description} ({result.symbol})
                         </li>
                     );
@@ -31,11 +42,14 @@ export const AutoComplete  = () => {
                     }
                 })
                 console.log(response)
-                if(isMounted) {
-                    setResults(response.data)
-                }else(
-                    setResults([])
-                    )
+                if (isMounted) {
+                    // Certifique-se de que response.data.result seja uma matriz
+                    if (Array.isArray(response.data.result)) {
+                        setResults(response.data.result);
+                    } else {
+                        setResults([]);
+                    }
+                }
                 
             }catch(err){
                 console.log(err)

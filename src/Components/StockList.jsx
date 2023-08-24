@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import finnHub from "../APIS/finnHub"
 import {BsFillCaretDownFill, BsFillCaretUpFill} from "react-icons/bs"
+import { WatchListContext } from "../context/watchListContext"
 
 
 export const StockList = () => {
-    const [whatchList, setWhatchList] = useState (["GOOGL", 'GOOG', 'MSFT','AMZN', 'ANET'])
+    
     const [stock, setStock] = useState()
+    const {whatchList} = useContext(WatchListContext)
     const changeColor = (change) => {
         return change > 0 ? 'success': 'danger'
     }
@@ -38,7 +40,7 @@ export const StockList = () => {
         fetchData()
 
         return () => {isMounted=false}
-    }, [])
+    }, [whatchList])
 
     return <div>
         <table className="table hover mt-5">
