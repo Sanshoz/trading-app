@@ -4,7 +4,7 @@ import {AutoComplete} from "./Components/AutoComplete.jsx"
 export const StockOverviewPage = () => {
    
     return <div>Stock Overview Page
-        <AutoComplete />
+        <AutoComplete /> 
         <StockList />
     </div>
 }

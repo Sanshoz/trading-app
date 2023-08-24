@@ -1,10 +1,17 @@
 import { useState, useEffect } from "react"
 import finnHub from "../APIS/finnHub"
+import {BsFillCaretDownFill, BsFillCaretUpFill} from "react-icons/bs"
 
 
 export const StockList = () => {
-    const [whatchList, setWhatchList] = useState (["GOOGL", 'MSFT','AMZN'])
+    const [whatchList, setWhatchList] = useState (["GOOGL", 'GOOG', 'MSFT','AMZN', 'ANET'])
     const [stock, setStock] = useState()
+    const changeColor = (change) => {
+        return change > 0 ? 'success': 'danger'
+    }
+    const renderIcon = (change) => {
+        return change > 0 ? <BsFillCaretUpFill />: <BsFillCaretDownFill />
+    }
     useEffect( () => {
         let isMounted = true
         const fetchData = async () => {
@@ -52,9 +59,9 @@ export const StockList = () => {
     return (
         <tr className="table-row" key={watchData.symbol}>
             <th>{watchData.symbol}</th>
-            <td>{watchData.data.c}</td>
-            <td>{watchData.data.d}</td>
-            <td>{watchData.data.dp}</td>
+            <td >{watchData.data.c}</td>
+            <td className={`text-${changeColor(watchData.data.d)}`}>{watchData.data.d}{renderIcon(watchData.data.d)}</td>
+            <td className={`text-${changeColor(watchData.data.dp)}`}>{watchData.data.dp}{renderIcon(watchData.data.dp)}</td>
             <td>{watchData.data.h}</td>
             <td>{watchData.data.l}</td>
             <td>{watchData.data.o}</td>
