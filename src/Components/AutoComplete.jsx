@@ -21,6 +21,7 @@ export const AutoComplete  = () => {
                 {results.map((result) => {
                     return (
                         <li key={result.symbol} className="dropdown-item" onClick={() => {
+                            console.log(result)
                             addStock(result.symbol)
                             setSearch('')
                             }}>
@@ -43,7 +44,6 @@ export const AutoComplete  = () => {
                 })
                 console.log(response)
                 if (isMounted) {
-                    // Certifique-se de que response.data.result seja uma matriz
                     if (Array.isArray(response.data.result)) {
                         setResults(response.data.result);
                     } else {

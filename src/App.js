@@ -11,12 +11,12 @@ export default function App() {
   return (
     <main className='container'>
       <WatchListContextProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<StockOverviewPage />} />
-          <Route path="/detail/:symbol" element={<StockDetailPage />} />
-        </Routes>
-      </BrowserRouter>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<StockOverviewPage />} />
+            <Route path="/detail/:symbol" element={<StockDetailPage />} />
+          </Routes>
+        </BrowserRouter>
       </WatchListContextProvider>
       
     </main>

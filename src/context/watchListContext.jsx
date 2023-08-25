@@ -1,23 +1,31 @@
 import { createContext } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 
 export const WatchListContext = createContext()
 
 export const WatchListContextProvider =  (props) => {
-    const [whatchList, setWhatchList] = useState (["GOOGL", 'GOOG', 'MSFT','AMZN', 'ANET'])
+
+    
+    const [watchList, setWatchList] = useState (localStorage.getItem("watchList")?.split(",") || ["GOOGL", 'GOOG', 'MSFT','AMZN', 'ANET'])
+    useEffect(()=>{
+        localStorage.setItem("watchList", watchList)
+    },[watchList])
+    
     const addStock = (stock) =>{
-        if(whatchList.indexOf(stock)=== -1)
-        setWhatchList([...whatchList, stock])
+        if(watchList.indexOf(stock)=== -1)
+      //  console.log(watchList)
+        setWatchList([...watchList, stock])
+      //  console.log(watchList)
     }
     const deleteStock = (stock) => {
-        setWhatchList(whatchList.filer((el)=>{
+        setWatchList(watchList.filter((el)=>{
         return el !== stock}))
     }
         
     
-    return <WatchListContext.Provider value={{whatchList , addStock, deleteStock}}>
+    return <WatchListContext.Provider value={{watchList , addStock, deleteStock}}>
         {props.children}
     </WatchListContext.Provider>
 }
